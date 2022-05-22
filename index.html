@@ -102,10 +102,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
 
-      <form  class="col-lg-12 needs-validation" name="notify" id="notify">
+      <form action="https://sheetdb.io/api/v1/a6skqpazipfi1" method="post" class="col-lg-12 needs-validation" name="notify" id="notify">
 
         <div class="col-md-4">
-    <select class="form-select" required aria-label="select example" name="SelectProduct" id="SelectProduct">
+    <select class="form-select" required aria-label="select example" name="data[SelectProduct]" id="SelectProduct">
       <option value="">Select Product</option>
       <option value="Premium">Premium</option>
       <option value="Managed">Managed</option>
@@ -116,7 +116,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="col-md-4">
           <label for="email" class="form-label">Email</label>
-           <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+          <input type="email" id="email" name="data[email]" class="form-control" placeholder="Enter your email address" required>
           <!-- <div class="input-group">
             
             <input type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
@@ -134,9 +134,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <!-- <button class="btn btn-primary me-2" type="submit">Send message!</button> -->
 
-          <a href=thanks.html target="_blank">
+          
             <button id="send" type="submit">Send Email</button>
-          </a>
+          
           <!-- <a href=thanks.html class="btn btn-primary" type="submit" id="send">Submit</a> -->
 
           <!-- <button class="btn btn-primary" onclick="" type="submit" id="send"> Submit form </a></button> -->
@@ -154,15 +154,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      const scriptURL = '<https://script.google.com/macros/s/AKfycby_wBdB8n9QqXEcgu3GuPcuFk09N6F_3ipTV6QEyVCjltxHdBtJmrg_us_djHveyLEi/exec>'
-  const form = document.forms['notify']
 
-  form.addEventListener('submit', e => {
-    e.preventDefault()
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => console.log('Success!', response))
-      .catch(error => console.error('Error!', error.message))
-  })
+      var form = document.getElementById('notify');
+        form.addEventListener("submit", e => {
+          e.preventDefault();
+          fetch(form.action, {
+              method : "POST",
+              body: new FormData(document.getElementById("notify")),
+          }).then(
+              response => response.json()
+          ).then((html) => {
+            // you can put any JS code here
+            window.open('thanks.html', '_blank');
+
+          });
+        });
+      
+
+
 
     // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
